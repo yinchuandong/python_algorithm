@@ -128,7 +128,7 @@ class Timer(threading.Thread):
         # self.setDaemon(True)
 
     def run(self):
-        model = Reservation('13620988145', '123456')
+        model = Reservation('13620988145', '***')
         model.login()
         while not self.isStopped:
             model.run(day=self.day)
@@ -145,7 +145,7 @@ class Timer(threading.Thread):
 #
 
 def singleMain():
-    model = Reservation('13620988145', '123456')
+    model = Reservation('13620988145', '***')
     model.login()
     while 1:
         model.run(day="2015-08-22")
@@ -192,7 +192,7 @@ def multiMain():
 
 if __name__ == '__main__':
     # singleMain()
-    multiMain()
+    # multiMain()
 
     
 
