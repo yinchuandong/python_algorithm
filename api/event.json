@@ -1,0 +1,83 @@
+{
+    "eventUid": "uuid",
+    "eventId": "xxfdsf123dfd",
+    "recurringEventUid": "uuid",
+    "recurringEventId": "xxfdsf123dfd",
+    "calendarUid": "",
+    "iCalUID": "xsdfdsfs",
+    "hostUserUid": "yinchuandong",
+    "userUid": "yinchuandogn",
+    "eventType": "solo|group|public",
+    "summary": "this is the title of event",
+    "description": "this is the note of event",
+    "startTime": "",
+    "endTime": "",
+    "recurrence": [
+        "EXDATE;VALUE=DATE:20150610",
+        "RDATE;VALUE=DATE:20150609,20150611",
+        "RRULE:FREQ=DAILY;UNTIL=20150628;INTERVAL=3"
+    ],
+    "photo": [
+        {"photoUid": "1", "photoUrl":""}
+    ],
+    "location": "",
+    "locationNote": "",
+    "locationLatitude": "",
+    "locationLongitude": "",
+    "reminder": "18",
+    "freebusyAccess": "0|1",
+    "eventSource": "gmail|facebook|itime",
+    "deleteLevel": "0",
+    "icsSequence": "1234556",
+    "status":"pending|confirmed|host_update|cancelled",
+    "invitee": [
+        {
+            "inviteeUid": "yin",
+            "status": "pending|quit|accepted|rejected",
+            "inviteeTimeslot": [
+                { "timeslotUid": "slot_1", "status": "accepted|rejected|pending"},
+                { "timeslotUid": "slot_2", "status": "accepted"},
+                { "timeslotUid": "slot_3", "status": "accepted"}
+            ]
+        },
+        {
+            "inviteeUid": "wang",
+            "status": "accepted",
+            "inviteeTimeslot": [
+                { "timeslotUid": "slot_1", "status": "accepted"},
+                { "timeslotUid": "slot_2", "status": "rejected"},
+                { "timeslotUid": "slot_3", "status": "rejected"}
+            ]
+        }
+    ],
+    "timeslot": [
+        {
+            "timeslotUid": "slot_1",
+            "startTime": "10000",
+            "endTime": "10000",
+            "acceptedNum": 2,
+            "totalNum": 3,
+            "isConfirmed": 1
+        },
+        {
+            "timeslotUid": "slot_2",
+            "startTime": "10000",
+            "acceptedNum": 0,
+            "totalNum": 3,
+            "isConfirmed": 0
+        },
+        {
+            "timeslotUid": "slot_3",
+            "startTime": "10000",
+            "acceptedNum": 0,
+            "totalNum": 3,
+            "isConfirmed": 0
+        }
+    ],
+
+
+    "createAt": "2016-09-03 12:00:00",
+    "updateAt": "2016-09-03 12:00:00"
+
+
+}

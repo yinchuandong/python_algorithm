@@ -1,2 +1,4 @@
 .idea
 cookies.dat
+.DS_Store
+*.pyc
