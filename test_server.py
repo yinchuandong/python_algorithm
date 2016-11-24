@@ -1,33 +1,67 @@
+import socket
 import sys
-import cPickle
-import math
-
-from SocketServer import BaseRequestHandler, UDPServer
+import threading
+import signal
 
 
-class UDPHandler(BaseRequestHandler):
+# Create a TCP/IP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    def handle(self):
-        data = self.request[0]
-        socket = self.request[1]
+# Bind the socket to the address given on the command line
+server_address = ('', 9999)
+sock.bind(server_address)
+sock.listen(1)
 
-        socket.sendto("server: " + data, self.client_address)
-        print data 
-        return
-
-
-class GameServer(UDPServer):
-    def __init__(self, server_address, handler_class=UDPHandler):
-        UDPServer.__init__(self, server_address, handler_class)
-        return
+client_threads = []
+stop_requested = False
 
 
-if __name__ == "__main__":
-    # host, port = "localhost", 9999
-    host, port = "10.12.185.71", 9999
-    if len(sys.argv) > 1:
-        index = int(sys.argv[1])
-        port = port + index
-    print port
-    server = GameServer((host, port), UDPHandler)
-    server.serve_forever()
+def signal_handler(signal_, frame_):
+    print 'You pressed Ctrl+C !'
+    global stop_requested
+    stop_requested = True
+    return
+
+
+def handler(connection, client_address):
+    try:
+        print 'client connected:', client_address
+        header = connection.recv(1)
+        print header, '-------header-----'
+        while not stop_requested:
+            data = connection.recv(16)
+            print 'received "%s"' % data
+            if data:
+                connection.sendall(data)
+            else:
+                break
+    finally:
+        connection.close()
+    return
+
+
+def main():
+    while True:
+        print 'waiting for a connection'
+        connection, client_address = sock.accept()
+        client = threading.Thread(target=handler, args=(connection, client_address))
+        client_threads.append(client)
+        if len(client_threads) == 2:
+            break
+
+    signal.signal(signal.SIGINT, signal_handler)
+
+    for thread in client_threads:
+        thread.start()
+
+    print 'Press Ctrl+C to stop'
+    signal.pause()
+
+    print 'Now saving data....'
+    for t in client_threads:
+        t.join()
+    return
+
+
+if __name__ == '__main__':
+    main()
