@@ -55,6 +55,6 @@ def test_shape():
     return
 
 if __name__ == '__main__':
-    # main()
+    main()
     # test_name_scope()
-    test_shape()
+    # test_shape()
