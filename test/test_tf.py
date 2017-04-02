@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 
 
-def main():
+def test_gradient():
     x_data = np.asarray([2])
     t_data = np.asarray([3])
 
@@ -54,7 +54,45 @@ def test_shape():
     print t.get_shape().as_list()
     return
 
+
+def test_numpy():
+
+    Q_table = [
+        [0, 1, 0, 0, 0, 5],
+        [1, 1, 3, 1, 1, 1],
+        [8, 1, 2, 3, 4, 5],
+    ]
+    Q_table = np.array(Q_table)
+    Q_a = np.argmax(Q_table, 1)
+
+    print Q_table
+    print Q_a
+    print Q_table[range(3), Q_a]
+    return
+
+
+def test_divide():
+    x_data = np.asarray([4.5h, 4, 8])
+
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+
+    state = tf.placeholder(tf.float32, [3])
+    div = tf.div(state, 2)
+
+    r = sess.run(div, feed_dict={state: x_data})
+    print r
+
+
+    return
+
+
+
+
 if __name__ == '__main__':
-    main()
+    # test_gradient()
     # test_name_scope()
     # test_shape()
+    # test_numpy()
+    test_divide()
