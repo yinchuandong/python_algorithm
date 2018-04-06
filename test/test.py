@@ -1,4 +1,4 @@
-#encoding:utf-8
+# encoding:utf-8
 
 __author__ = 'yinchuandong'
 
@@ -16,6 +16,7 @@ def getSchoolList():
     print jsonObj['data']['School'][0]['schoolName']
     return
 
+
 def getQueryInfo():
     params = {
         "sfz_h": "500382199307154136",
@@ -31,14 +32,20 @@ def getQueryInfo():
     content = urllib2.urlopen(url, data).read()
     content = content.decode('gb2312')
     doc = BeautifulSoup(content)
-    result = doc.find('form', attrs={"name":"frm"}).find('p', attrs={"style":True})
+    result = doc.find('form', attrs={"name": "frm"}).find('p', attrs={"style": True})
     print result
     print doc.find('title').string
-
-
-
     return
 
+
+def test():
+    d = {(k, 0): 1 for k in range(4)}
+    print d
+    print (1, 0) in d
+    return
+
+
 if __name__ == '__main__':
-    #getSchoolList()
-    getQueryInfo()
+    # getSchoolList()
+    # getQueryInfo()
+    test()

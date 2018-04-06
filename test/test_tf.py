@@ -62,17 +62,19 @@ def test_numpy():
         [1, 1, 3, 1, 1, 1],
         [8, 1, 2, 3, 4, 5],
     ]
-    Q_table = np.array(Q_table)
-    Q_a = np.argmax(Q_table, 1)
+    # a = np.zeros_like(Q_table)
+    # print np.shape(a)
+    # Q_table = np.array(Q_table)
+    # Q_a = np.argmax(Q_table, 1)
 
-    print Q_table
-    print Q_a
-    print Q_table[range(3), Q_a]
+    # print Q_tabl
+    # print Q_a
+    # print Q_table[range(3), Q_a]
     return
 
 
 def test_divide():
-    x_data = np.asarray([4.5h, 4, 8])
+    x_data = np.asarray([4.5, 4, 8])
 
     init = tf.global_variables_initializer()
     sess = tf.Session()
@@ -83,11 +85,74 @@ def test_divide():
 
     r = sess.run(div, feed_dict={state: x_data})
     print r
+    return
 
+
+def test_add():
+    a = tf.constant([[1], [2], [3]])
+    b = tf.constant([[1], [1]])
+    c = tf.constant([[1], [2], [3]])
+
+    d = a + c
+    # d = tf.concat([a, c], axis=1)
+
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+
+    # add = d
+    add = tf.reduce_sum(d)
+    r = sess.run(add)
+    print r
+
+
+def test_multiply():
+    pred = tf.constant([[1, 1], [2, 2], [3, 3]])
+    label = tf.constant([[0, 0], [1, 1], [0, 0]])
+
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+
+    multiply = pred * label
+    # multiply = tf.multiply(pred, label)
+    r = sess.run(multiply)
+    print r
+
+
+def test_entropy():
+    pred = tf.constant([[0.8, 0.2], [0.5, 0.5]])
+    log_pi = tf.log(tf.clip_by_value(pred, 1e-20, 1.0))
+    entropy = -tf.reduce_sum(pred * log_pi, axis=1)
+    # entropy = pred * log_pi
+
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+
+    r = sess.run(entropy)
+    print r
 
     return
 
 
+def test_onehot():
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+
+    action = tf.constant([[0, 1], [2, 3]])
+
+    action_onehot = tf.one_hot(action, 4)
+    r0, r1 = sess.run([action, action_onehot])
+    print np.shape(r0)
+    print np.shape(r1)
+
+    # returns = tf.constant([[1, 2], [3, 4]])
+    # loss = action * returns
+    # print sess.run(loss)
+
+    return
 
 
 if __name__ == '__main__':
@@ -95,4 +160,8 @@ if __name__ == '__main__':
     # test_name_scope()
     # test_shape()
     # test_numpy()
-    test_divide()
+    # test_divide()
+    # test_add()
+    # test_multiply()
+    # test_entropy()
+    test_onehot()
